@@ -12,6 +12,12 @@ class _HomeState extends State<Home> {
   var namecontroller = new TextEditingController();
   String name = "";
   @override
+  void initState() {
+    loadname();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -69,6 +75,13 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  loadname() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      name = preferences.getString("name") ?? "";
+    });
   }
 
   save(String name) async {
